@@ -1,0 +1,5 @@
+/*C3*/SET SCHEMA PUBLIC
+drop table if exists Produto CASCADE 
+drop sequence hibernate_sequence if exists
+create sequence hibernate_sequence start with 1 increment by 1
+create table Produto (DTYPE varchar(31) not null, id integer not null, ano integer, editora varchar(255), titulo varchar(255), type varchar(255), autor varchar(255), tamanho float, url varchar(255), primary key (id))
