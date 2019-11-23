@@ -6,6 +6,7 @@ import java.util.Scanner;
 import br.edu.unibratec.livrariadigital.excecoes.servicoException;
 import br.edu.unibratec.livrariadigital.model.Livro;
 import br.edu.unibratec.livrariadigital.model.TYPE;
+import br.edu.unibratec.livrariadigital.servico.Facade;
 import br.edu.unibratec.livrariadigital.servico.ServicoLivro;
 
 public class Main {
@@ -13,20 +14,12 @@ public class Main {
 	public static void main(String[] args) {
 
 		Scanner s = new Scanner(System.in);
-		// Chamada do tipo Digital
-		
-		// Chamada do tipo Fisico
-		
-
-		// Chamada do Livro acrescentando o TIPO Digital
-		//Livro vLivro = new Livro("Title", "editora", 2018, vDigital, "autor");
-
-		// Chamada do Livro acrescentando o TIPO Fisico
-		
+		Facade fachada = Facade.getInstancia();
+	
 
 		
 		//Chamada do CRUD
-		ServicoLivro servicoLivro = new ServicoLivro();
+		//ServicoLivro servicoLivro = new ServicoLivro();
 		int opcao = 0;
 		String tipo = "";
 		do {
@@ -67,15 +60,11 @@ public class Main {
 				    System.out.println("Digite o tamanho do arquivo:\n");
 				    v2Livro.setTamanho(s.nextFloat());
 					v2Livro.setType(TYPE.DIGITAL);};		
-				try {
-					servicoLivro.create(v2Livro);
-				} catch (servicoException e) {
-					System.err.println(e.getMessage());
-				}	
+				fachada.inserirLivro(v2Livro);	
 				break;
 			case 2:
 				try {
-					System.out.println(servicoLivro.read());
+					System.out.println(fachada.listarLivros());
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
@@ -83,7 +72,7 @@ public class Main {
 			case 3:
 				System.out.println("Digite o título:");
 				try {
-					System.out.println(servicoLivro.readTitulo(s.next()));
+					System.out.println(fachada.listarTitulo(s.next()));
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
@@ -91,7 +80,7 @@ public class Main {
 			case 4:
 				System.out.println("Digite o autor:");
 				try {
-					System.out.println(servicoLivro.readAutor(s.next()));
+					System.out.println(fachada.listarAutor(s.next()));
 					
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
@@ -100,7 +89,7 @@ public class Main {
 			case 5:
 				System.out.println("Digite o ano:");
 				try {
-					System.out.println(servicoLivro.readAno(s.nextInt()));	
+					System.out.println(fachada.listarAno(s.nextInt()));	
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
@@ -119,24 +108,19 @@ public class Main {
 				System.out.println("Digite o novo tipo de Mídia:");
 				System.out.println("--Dgitial ou Física-1-\n");
 				tipo = s.next();
-				if(tipo.equalsIgnoreCase("física"))
-					//v2Livro.setTipo(new Fisico());
-				if(tipo.equalsIgnoreCase("digital"))
-					//v2Livro.setTipo(new Digital());	
-				try {
-			
-					System.out.println(servicoLivro.update(v2Livro));
-				} catch (servicoException e) {
-					System.err.println(e.getMessage());
-				}
+				if(tipo.equalsIgnoreCase("física") || tipo.equalsIgnoreCase("f")){
+					v2Livro.setType(TYPE.FISICO);}
+				else if(tipo.equalsIgnoreCase("digital")|| tipo.equalsIgnoreCase("d")){
+					System.out.println("Digite a url do livro:\n");
+				    v2Livro.setUrl(s.next());
+				    System.out.println("Digite o tamanho do arquivo:\n");
+				    v2Livro.setTamanho(s.nextFloat());
+					v2Livro.setType(TYPE.DIGITAL);};
+				fachada.atualizaLivro(v2Livro);
 				break;
 			case 7:	
 				
-				try {
-					System.out.println(servicoLivro.delete(v2Livro));
-				} catch (servicoException e) {
-					System.err.println(e.getMessage());
-				}
+				fachada.deletarLivro(v2Livro);
 				break;
 				
 			}

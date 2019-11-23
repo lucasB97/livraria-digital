@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import br.edu.unibratec.livrariadigital.model.Livro;
 
@@ -93,56 +94,40 @@ public class RepositorioLivro implements IRepositorioLivro<Object> {
 	
 
 	public List<Livro> readTitulo(String titulo) {
+		List<Livro> result = new ArrayList<Livro>();
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		List<Livro> livroTitulo = null;
-		livroTitulo = new ArrayList<Livro>();
-		for (Livro livro : this.livros) {
-			if (livro.getTitulo().equals(titulo)) {
-				livro = session.get(Livro.class, titulo);
-			}
-		}
-		
-		session.getTransaction().commit();
+		 	
+		Query query = session.createQuery("from Produto where titulo = :produto_titulo");
+		query.setParameter("produto_titulo", titulo);
+		result = query.getResultList();
 		session.close();
+	
+		return result;
 
-		return livroTitulo;
 	}
 
 	public List<Livro> readAutor(String autor) {
+		List<Livro> result = new ArrayList<Livro>();
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		List<Livro> livroAutor = null;
-		livroAutor = new ArrayList<Livro>();
-		for (Livro livro : this.livros) {
-			if (livro.getAutor().equals(autor)) {
-				livro = session.get(Livro.class, autor);
-			}
-		}
-		session.getTransaction().commit();
+		 	
+		Query query = session.createQuery("from Produto where autor = :produto_autor");
+		query.setParameter("produto_autor", autor);
+		result = query.getResultList();
 		session.close();
-		
-		return livroAutor;
+	
+		return result;
 	}
 
 	public List<Livro> readAno(Integer ano) {
+		List<Livro> result = new ArrayList<Livro>();
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		List<Livro> livroAno = null;
-		livroAno = new ArrayList<Livro>();
-
-		for (Livro livro : this.livros) {
-			if (livro.getAno().equals(ano)) {
-				livro = session.get(Livro.class, ano);
-			}
-		}
-		session.getTransaction().commit();
+		 	
+		Query query = session.createQuery("from Produto where ano = :produto_ano");
+		query.setParameter("produto_ano", ano);
+		result = query.getResultList();
 		session.close();
-		
-		return livroAno;
+	
+		return result;
 	}
 
 	public List<Livro> readId(Integer id) {
