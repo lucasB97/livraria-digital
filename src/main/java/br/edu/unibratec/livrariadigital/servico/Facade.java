@@ -22,7 +22,7 @@ public class Facade {
 		return instancia;
 	}
 	
-	public void inserirLivro(Livro livro) {
+	public void createLivro(Livro livro) {
 				
 		try {
 			 servico.create(livro);
@@ -33,12 +33,12 @@ public class Facade {
 		
 	}
 	
-	public List<Livro> listarLivros() throws servicoException{
+	public List<Livro> readLivro() throws servicoException{
 		 
 		return servico.read();
 	}
 	
-	public void atualizaLivro(Livro livro) {
+	public void updateLivro(Livro livro) {
 		
 		try {
 			servico.update(livro);
@@ -49,7 +49,7 @@ public class Facade {
 				
 	}
 	
-	public void deletarLivro(Livro livro) {
+	public void deleteLivro(Livro livro) {
              try {
 					servico.delete(livro);
 				} catch (servicoException e) {
@@ -59,19 +59,19 @@ public class Facade {
 	
 	}
 	
-	public List<Livro> listarTitulo(String titulo) throws servicoException{
+	public List<Livro> readTitulo(String titulo) throws servicoException{
 		
 		return servico.readTitulo(titulo);
 		
 	}
 	
-    public List<Livro> listarAutor(String autor) throws servicoException{
+    public List<Livro> readAutor(String autor) throws servicoException{
 		
 		return servico.readTitulo(autor);
 		
 	}
     
-   public List<Livro> listarAno(Integer ano) throws servicoException{
+   public List<Livro> readAno(Integer ano) throws servicoException{
 		
 		return servico.readAno(ano);
 		

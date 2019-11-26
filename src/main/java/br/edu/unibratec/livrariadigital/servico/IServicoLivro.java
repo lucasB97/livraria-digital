@@ -26,5 +26,4 @@ public interface IServicoLivro {
 
 	List<Livro> readAno(Integer ano)throws servicoException;
 	
-	List<Livro> readId(Integer id);
 }

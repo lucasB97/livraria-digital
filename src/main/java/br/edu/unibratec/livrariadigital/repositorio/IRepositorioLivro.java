@@ -30,7 +30,8 @@ public interface IRepositorioLivro<Object>{
 	
 	List<Livro> readAno(Integer ano);
 	
-	List<Livro> readId(Integer id);
+	Boolean findId(Integer livroId);
+	
 	
 	
 }

@@ -90,17 +90,5 @@ public class ServicoLivro implements IServicoLivro {
 		return vLivros;
 	}
 
-	public List<Livro> readId(Integer id) {
-		List<Livro> vLivros = null;
-
-		vLivros = repositorio.readId(id);
-		
-		return vLivros;
-	}
-
-	public Boolean delete(Integer id) throws servicoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

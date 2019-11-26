@@ -54,17 +54,10 @@ public class Livro extends Produto {
 
 	@Override
 	public String toString() {
-		return "Livro [getUrl()=" + getUrl() + ", getTamanho()=" + getTamanho() + ", getAutor()=" + getAutor()
-				+ ", getType()=" + getType() + ", getId()=" + getId() + ", getTitulo()=" + getTitulo()
-				+ ", getEditora()=" + getEditora() + ", getAno()=" + getAno() + "]";
+		return "\n Livro: " + getTitulo() + "\n Autor: " + getAutor() + "\n Título: " + getTitulo() + "\n Editora: " + getEditora()
+		+ "\n Tipo: " + getType() + "\n Id: " + getId()
+		+ "\n Ano: " + getAno() + "\n URL: " + getUrl() + "\n Tamanho: " + getTamanho() + "\n";
 	}
-    //Antigo toString
-	/*
-	@Override
-	public String toString() {
-		return "Produto [id=" + getId() + ", titulo=" + getTitulo() + " autor= " + getAutor() + ", editora=" + getEditora() + ", ano=" + getAno() + ", tipo=" + getTipo()
-				+ "]";
-	}
-	*/
+    
 	
 }

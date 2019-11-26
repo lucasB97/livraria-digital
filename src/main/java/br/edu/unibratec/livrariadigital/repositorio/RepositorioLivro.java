@@ -13,7 +13,6 @@ import br.edu.unibratec.livrariadigital.model.Livro;
 public class RepositorioLivro implements IRepositorioLivro<Object> {
 
 
-	List<Livro> livros = new ArrayList<Livro>();
 	private SessionFactory sessionFactory;
 	
 	public RepositorioLivro() {
@@ -25,16 +24,6 @@ public class RepositorioLivro implements IRepositorioLivro<Object> {
 	public Livro create(Livro pLivro) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		
-		
-		if (this.livros.size() == 0) {
-
-			pLivro.setId(1);
-		} else {
-
-			pLivro.setId(this.livros.size() + 1);
-		}
-
 		session.save(pLivro);
 		session.getTransaction().commit();
 		session.close();
@@ -69,27 +58,31 @@ public class RepositorioLivro implements IRepositorioLivro<Object> {
 	}
 	
 	public Boolean delete(Livro pLivro) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		for(int i = 0; i < livros.size(); i++)
-		{
-			pLivro = livros.get(i);
-
-			if(pLivro.getId().equals(livros))
-			{        
-				session.delete(pLivro);	
-				break;
-			}
+		
+		if (findId(pLivro.getId())) {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.delete(pLivro);
+			System.out.println("Livro deletado com Sucesso!");
+			session.getTransaction().commit();
+			session.close();
+			return true;
 		}
-		session.getTransaction().commit();
-		session.close();
-		System.out.println("Livro deletado com Sucesso!");
-
-		return true;
+		return false;
+		
 	} 
 
 	public Boolean livroExistente(Livro pLivro) {
-		return this.livros.contains(pLivro);
+		List<Livro> result = new ArrayList<Livro>();
+		Session session = sessionFactory.openSession();
+		 	
+		Query query = session.createQuery("from Produto");
+		result = query.getResultList();
+		session.close();
+	
+		return result.contains(pLivro);
+		
+		
 	}
 	
 
@@ -130,18 +123,18 @@ public class RepositorioLivro implements IRepositorioLivro<Object> {
 		return result;
 	}
 
-	public List<Livro> readId(Integer id) {
-		List<Livro> livroId = null;
-		livroId = new ArrayList<Livro>();
-
-		for (Livro livro : this.livros) {
-			if (livro.getId().equals(id)) {
-				livroId.add(livro);
-			}
+	//Novo método abaixo: Criado para deletar por ID.
+		public Boolean findId(Integer livroId) {
+			List<Livro> result = new ArrayList<Livro>();
+			Session session = sessionFactory.openSession();
+			Query query = session.createQuery("from Produto where Id = :produto_id");
+			query.setParameter("produto_id", livroId);
+			result = query.getResultList();
+			session.close();
+		
+			return !result.isEmpty();
+			
 		}
-
-		return livroId;
-	}
 
 
 
