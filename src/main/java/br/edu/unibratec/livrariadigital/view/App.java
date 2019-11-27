@@ -14,9 +14,7 @@ public class App {
 
 		Scanner s = new Scanner(System.in);
 		Facade fachada = Facade.getInstancia();
-	
 
-		
 		int opcao = 0;
 		String tipo = "";
 		do {
@@ -35,30 +33,31 @@ public class App {
 			System.out.println("Opção -> ");
 			Livro v2Livro = new Livro();
 			opcao = s.nextInt();
+			s.nextLine();
 			switch (opcao) {
 			case 1:
 				System.out.println("Insira um livro\n");
 				System.out.println("Titulo:\n");
-				v2Livro.setTitulo(s.next());
+				v2Livro.setTitulo(s.nextLine().trim());
 				System.out.println("Autor:\n");
-				v2Livro.setAutor(s.next());
+				v2Livro.setAutor(s.nextLine().trim());
 				System.out.println("Editora:\n");
-				v2Livro.setEditora(s.next());
+				v2Livro.setEditora(s.nextLine().trim());
 				System.out.println("Ano:\n");
 				v2Livro.setAno(s.nextInt());
 				System.out.println("Tipo de mídia");
 				System.out.println("--Digital ou Física--\n");
 				tipo = s.next();
-				if(tipo.equalsIgnoreCase("física") || tipo.equalsIgnoreCase("f")){
-					v2Livro.setType(TYPE.FISICO);}
-				else if(tipo.equalsIgnoreCase("digital")|| tipo.equalsIgnoreCase("d")){
+				if (tipo.equalsIgnoreCase("física") || tipo.equalsIgnoreCase("f")) {
+					v2Livro.setType(TYPE.FISICO);
+				} else if (tipo.equalsIgnoreCase("digital") || tipo.equalsIgnoreCase("d")) {
 					System.out.println("Digite a url do livro:\n");
-				    v2Livro.setUrl(s.next());
-				    System.out.println("Digite o tamanho do arquivo:\n");
-				    v2Livro.setTamanho(s.nextFloat());
-					v2Livro.setType(TYPE.DIGITAL);};		
-				fachada.createLivro(v2Livro);	
-				break;
+					v2Livro.setUrl(s.next().trim());
+					System.out.println("Digite o tamanho do arquivo:\n");
+					v2Livro.setTamanho(s.nextFloat());
+					v2Livro.setType(TYPE.DIGITAL);
+				}
+				fachada.createLivro(v2Livro);
 			case 2:
 				try {
 					System.out.println(fachada.readLivro());
@@ -69,7 +68,7 @@ public class App {
 			case 3:
 				System.out.println("Digite o título:");
 				try {
-					System.out.println(fachada.readTitulo(s.next()));
+					System.out.println(fachada.readTitulo(s.nextLine().trim()));
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
@@ -77,8 +76,8 @@ public class App {
 			case 4:
 				System.out.println("Digite o autor:");
 				try {
-					System.out.println(fachada.readAutor(s.next()));
-					
+					System.out.println(fachada.readAutor(s.nextLine().trim()));
+
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
@@ -86,41 +85,43 @@ public class App {
 			case 5:
 				System.out.println("Digite o ano:");
 				try {
-					System.out.println(fachada.readAno(s.nextInt()));	
+					System.out.println(fachada.readAno(s.nextInt()));
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
 				break;
-			case 6:	
+			case 6:
 				System.out.println("Digite o ID do livro para edição: ");
 				v2Livro.setId(s.nextInt());
+				s.nextLine();
 				System.out.println("Digite o novo Título:");
-				v2Livro.setTitulo(s.next());
+				v2Livro.setTitulo(s.nextLine().trim());
 				System.out.println("Digite o novo Autor:");
-				v2Livro.setAutor(s.next());
+				v2Livro.setAutor(s.nextLine().trim());
 				System.out.println("Digite a nova Editora:");
-				v2Livro.setEditora(s.next());
+				v2Livro.setEditora(s.nextLine().trim());
 				System.out.println("Digite o novo Ano:");
 				v2Livro.setAno(s.nextInt());
 				System.out.println("Digite o novo tipo de Mídia:");
 				System.out.println("--Digital(D) ou Física(F)--\n");
 				tipo = s.next();
-				if(tipo.equalsIgnoreCase("física") || tipo.equalsIgnoreCase("f")){
-					v2Livro.setType(TYPE.FISICO);}
-				else if(tipo.equalsIgnoreCase("digital")|| tipo.equalsIgnoreCase("d")){
+				if (tipo.equalsIgnoreCase("física") || tipo.equalsIgnoreCase("f")) {
+					v2Livro.setType(TYPE.FISICO);
+				} else if (tipo.equalsIgnoreCase("digital") || tipo.equalsIgnoreCase("d")) {
 					System.out.println("Digite a url do livro:\n");
-				    v2Livro.setUrl(s.next());
-				    System.out.println("Digite o tamanho do arquivo:\n");
-				    v2Livro.setTamanho(s.nextFloat());
-					v2Livro.setType(TYPE.DIGITAL);};
+					v2Livro.setUrl(s.next());
+					System.out.println("Digite o tamanho do arquivo:\n");
+					v2Livro.setTamanho(s.nextFloat());
+					v2Livro.setType(TYPE.DIGITAL);
+				}
 				fachada.updateLivro(v2Livro);
 				break;
-			case 7:	
+			case 7:
 				System.out.println("Selecione o ID do livro à ser excluído: ");
 				v2Livro.setId(s.nextInt());
 				fachada.deleteLivro(v2Livro);
 				break;
-				
+
 			}
 		} while (opcao != 0);
 	}

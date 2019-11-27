@@ -54,7 +54,7 @@ public class Livro extends Produto {
 
 	@Override
 	public String toString() {
-		return "\n Livro: " + getTitulo() + "\n Autor: " + getAutor() + "\n Título: " + getTitulo() + "\n Editora: " + getEditora()
+		return "\n Titulo: " + getTitulo() + "\n Autor: " + getAutor() +   "\n Editora: " + getEditora()
 		+ "\n Tipo: " + getType() + "\n Id: " + getId()
 		+ "\n Ano: " + getAno() + "\n URL: " + getUrl() + "\n Tamanho: " + getTamanho() + "\n";
 	}
